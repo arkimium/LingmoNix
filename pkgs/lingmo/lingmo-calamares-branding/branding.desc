@@ -34,3 +34,6 @@ style:
    SidebarText:              "#FFFFFF"
    SidebarTextCurrent:       "#292F34"
    SidebarBackgroundCurrent: "#2ea36d"
+
+slideshowAPI: 2
+slideshow: "show.qml"

@@ -12,6 +12,7 @@ stdenvNoCC.mkDerivation {
     dir="$out/share/calamares/branding/lingmonix"
     mkdir -p "$dir"
     cp "${./branding.desc}" "$dir/branding.desc"
+    cp "${./show.qml}" "$dir/show.qml"
     cp "${brandingAssets}/lingmo-logo.svg" "$dir/lingmo-logo.svg"
     runHook postInstall
   '';
