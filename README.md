@@ -25,7 +25,7 @@ tools/pkgbuild2nix.sh         AUR PKGBUILD -> Nix derivation converter
 - [x] Phase 0/1: inventory, flake + overlay + module scaffold, logo assets
 - [x] Phase 1: Nix installed on dev machine
 - [x] Full AUR component set added: apps (filemanager, terminal, texteditor,
-      screenshots, videoplayer) + theming/assets (wallpapers, systemicons,
+      screenshots, videoplayer, calculator) + theming/assets (wallpapers, systemicons,
       gtk-themes, cursor-themes, sddm-theme)
 - [x] Qt6/KF6 components: lingmo-appearance, lingmo-installer-firstboot
       (separate `lingmo-qt6` scope — upstream targets Qt6, not Qt5)
@@ -33,7 +33,7 @@ tools/pkgbuild2nix.sh         AUR PKGBUILD -> Nix derivation converter
 - [x] Phase 3: core & session builds (lingmo-core incl. session/polkit-agent/daemons,
       lingmo-screenlocker)
 - [x] Phase 4: shell + apps build (dock, launcher, statusbar, settings,
-      filemanager, terminal, texteditor, screenshots, videoplayer)
+      filemanager, terminal, texteditor, screenshots, videoplayer, calculator)
 - [ ] Phase 5–7: module wiring (session/daemon units, PAM, SDDM), ISO, CI
 
 ## Develop LingmoNix (needs sudo — run in your own terminal)

@@ -47,6 +47,7 @@
           lingmo-terminal
           lingmo-texteditor
           lingmo-videoplayer
+          lingmo-calculator
           lingmo-cursor-themes
           lingmo-gtk-themes
           lingmo-sddm-theme

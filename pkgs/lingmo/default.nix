@@ -30,7 +30,8 @@ lib.recurseIntoAttrs (rec {
   lingmo-terminal = callPackage ./lingmo-terminal { inherit lingmoui; };
   lingmo-texteditor = callPackage ./lingmo-texteditor { };
   lingmo-videoplayer = callPackage ./lingmo-videoplayer { };
-  # TODO(phase 4): lingmo-calculator, velora-* daemons, lastore-daemon
+  lingmo-calculator = callPackage ./lingmo-calculator { };
+  # TODO(phase 4): velora-* daemons, lastore-daemon
 
   # ---- Layer 5: theming & assets ----
   lingmo-cursor-themes = callPackage ./lingmo-cursor-themes { };
