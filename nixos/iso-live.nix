@@ -5,9 +5,18 @@
 #
 # Branding (os-release, plymouth, grub, calamares) is LingmoNix. Nix store
 # fetches from the USTC mirror + LingmoNix Cachix.
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, lingmonix-flake, ... }:
 
 let
+  # Bundle the LingmoNix source (module + overlay + packages + assets) so the
+  # installer can copy it onto the target's /etc/nixos/lingmonix/.
+  lingmonix-source = pkgs.runCommand "lingmonix-source" { } ''
+    mkdir -p "$out/share/lingmonix"
+    cp -r ${lingmonix-flake.outPath}/nixos "$out/share/lingmonix/nixos"
+    cp -r ${lingmonix-flake.outPath}/pkgs "$out/share/lingmonix/pkgs"
+    cp -r ${lingmonix-flake.outPath}/overlays "$out/share/lingmonix/overlays"
+    cp -r ${lingmonix-flake.outPath}/assets "$out/share/lingmonix/assets"
+  '';
   # calamares-nixos-extensions with `branding: lingmonix`, a "Lingmo" desktop
   # option in the package chooser, and experimental-features in the generated config.
   calamares-nixos-lingmonix = pkgs.calamares-nixos-extensions.overrideAttrs (o: {
@@ -98,6 +107,7 @@ in
     lingmo.lingmo-plymouth-theme
     lingmo.lingmo-grub-config
     lingmo.lingmo-calamares-branding   # branding/lingmonix component
+    lingmonix-source                   # Lingmo module+overlay for the installer
     libsForQt5.kpmcore
     calamares-nixos
     calamares-nixos-autostart

@@ -2,7 +2,10 @@
 """Patch calamares-nixos-extensions for LingmoNix:
 
 1. packagechooser.conf — add a "Lingmo" desktop option (before the "No desktop" item).
-2. modules/nixos/main.py — add a `cfglingmo` desktop config snippet + a mapping,
+2. modules/nixos/main.py — add a `cfglingmo` snippet + mapping that:
+   - applies the bundled Lingmo overlay,
+   - adds the bundled Lingmo module to the `imports` list,
+   - copies the bundled LingmoNix source onto the target,
    and add `nix.settings.experimental-features` (nix-command + flakes) to every
    generated configuration.nix.
 """
@@ -23,7 +26,10 @@ SNIPPETS = '''cfgexperimental = """  # Enable the nix command and flakes (requir
 
 """
 
-cfglingmo = """  # Enable the X11 windowing system.
+cfglingmo = """  # LingmoNix: apply the bundled Lingmo overlay.
+  nixpkgs.overlays = [ (import /etc/nixos/lingmonix/overlays/lingmo.nix) ];
+
+  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the Lingmo Desktop Environment.
@@ -34,11 +40,27 @@ cfglingmo = """  # Enable the X11 windowing system.
 
 '''
 
+LINGMO_MAPPING = '''    elif gs.value("packagechooser_packagechooser") == "lingmo":
+        cfg += cfglingmo
+        # Add the bundled Lingmo module to the imports list.
+        cfg = cfg.replace(
+            "./hardware-configuration.nix\\n    ];",
+            "./hardware-configuration.nix\\n      /etc/nixos/lingmonix/nixos/modules/services/desktops/lingmo\\n    ];",
+        )
+        # Copy the bundled LingmoNix source onto the target.
+        subprocess.check_output(
+            ["mkdir", "-p", root_mount_point + "/etc/nixos"], stderr=subprocess.STDOUT
+        )
+        subprocess.check_output(
+            ["cp", "-r", "/run/current-system/sw/share/lingmonix", root_mount_point + "/etc/nixos/lingmonix"],
+            stderr=subprocess.STDOUT,
+        )
+'''
+
 
 def patch_packagechooser(path):
     with open(path) as f:
         src = f.read()
-    # Insert the Lingmo item right before the special "no desktop" (id "") item.
     marker = '    - id: ""\n'
     if marker not in src:
         raise SystemExit(f"marker not found in {path}")
@@ -55,12 +77,11 @@ def patch_main(path):
     # 1. Define the new config snippets right before the first function.
     src = src.replace("def env_is_set(name):", SNIPPETS + "def env_is_set(name):", 1)
 
-    # 2. Map the "lingmo" choice to cfglingmo (after the deepin mapping).
+    # 2. Map the "lingmo" choice to cfglingmo + copy the bundled source.
     old = '    elif gs.value("packagechooser_packagechooser") == "deepin":\n        cfg += cfgdeepin\n'
-    new = old + '    elif gs.value("packagechooser_packagechooser") == "lingmo":\n        cfg += cfglingmo\n'
     if old not in src:
         raise SystemExit("deepin mapping not found in " + path)
-    src = src.replace(old, new, 1)
+    src = src.replace(old, old + LINGMO_MAPPING, 1)
 
     # 3. Emit experimental features into every generated configuration.nix.
     old = "    cfg += cfgtail\n"

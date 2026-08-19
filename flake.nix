@@ -100,7 +100,12 @@
           modules = [
             self.nixosModules.lingmo
             ./nixos/iso-live.nix
-            { nixpkgs.overlays = [ self.overlays.default ]; }
+            {
+              nixpkgs.overlays = [ self.overlays.default ];
+              # Expose the flake source so the installer can bundle the Lingmo
+              # module + overlay onto the target system.
+              _module.args.lingmonix-flake = self;
+            }
           ];
         };
       };
