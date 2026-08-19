@@ -55,8 +55,7 @@ nix build .#iso-live     # full live ISO (graphical base + Lingmo desktop)
 ## Binary cache
 
 Pre-built LingmoNix packages are published to the Cachix binary cache
-**`lingmonix`** (`https://lingmonix.cachix.org`, public key
-`lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA==`),
+**`lingmonix`** (check [LingmoNix's Cachix Repo](https://lingmonix.cachix.org) for the public key),
 declared in `flake.nix` (`nixConfig`), so `nix build` fetches pre-built artifacts
 automatically.
 
