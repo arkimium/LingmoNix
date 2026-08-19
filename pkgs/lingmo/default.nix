@@ -15,8 +15,7 @@ lib.recurseIntoAttrs (rec {
   # ---- Layer 2: core & session ----
   lingmo-core = callPackage ./lingmo-core { };
   lingmo-screenlocker = callPackage ./lingmo-screenlocker { };
-  # TODO(phase 3): lingmo-session (repo: velora-session, no AUR tag yet)
-  # TODO(phase 3): lingmo-polkit-agent (repo: lingmo-polkit-agent, no AUR tag yet)
+  # NOTE: lingmo-session + lingmo-polkit-agent are bundled inside lingmo-core.
 
   # ---- Layer 3: shell & panels ----
   lingmo-dock = callPackage ./lingmo-dock { inherit lingmoui; };
@@ -31,7 +30,9 @@ lib.recurseIntoAttrs (rec {
   lingmo-texteditor = callPackage ./lingmo-texteditor { };
   lingmo-videoplayer = callPackage ./lingmo-videoplayer { };
   lingmo-calculator = callPackage ./lingmo-calculator { };
-  # TODO(phase 4): velora-* daemons, lastore-daemon
+  # NOTE: no separate daemon layer — all Qt5 daemons are bundled in lingmo-core.
+  # velora-* (next-gen, Qt6/Wayland) and apt-centric daemons (lingmo-daemon/QApt,
+  # lastore-daemon, lingmo-updator) are out of scope / replaced by Nix-native shims.
 
   # ---- Layer 5: theming & assets ----
   lingmo-cursor-themes = callPackage ./lingmo-cursor-themes { };
@@ -39,6 +40,7 @@ lib.recurseIntoAttrs (rec {
   lingmo-sddm-theme = callPackage ./lingmo-sddm-theme { };
   lingmo-systemicons = callPackage ./lingmo-systemicons { };
   lingmo-wallpapers = callPackage ./lingmo-wallpapers { };
+  lingmo-plymouth-theme = callPackage ./lingmo-plymouth-theme { };
 
   # NOTE: lingmo-appearance + lingmo-installer-firstboot are Qt6/KF6 and live
   # in the separate pkgs.lingmo-qt6 set (see overlays/lingmo.nix).

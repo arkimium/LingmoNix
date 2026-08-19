@@ -52,7 +52,8 @@
           lingmo-gtk-themes
           lingmo-sddm-theme
           lingmo-systemicons
-          lingmo-wallpapers;
+          lingmo-wallpapers
+          lingmo-plymouth-theme;
         inherit (pkgs.lingmo-qt6)
           lingmo-appearance
           lingmo-installer-firstboot;

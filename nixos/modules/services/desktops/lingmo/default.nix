@@ -53,6 +53,11 @@ in
     # environment.systemPackages below (SDDM looks in /run/current-system/sw/share/sddm/themes).
     services.displayManager.sddm.theme = "lingmo";
 
+    # ---- Plymouth boot splash (Lingmo branding) ----
+    boot.plymouth.enable = true;
+    boot.plymouth.theme = "lingmo-plymouth";
+    boot.plymouth.themePackages = [ pkgs.lingmo.lingmo-plymouth-theme ];
+
     # ---- Desktop session entry ----
     services.xserver.displayManager.session = [{
       name = "lingmo";
@@ -91,6 +96,7 @@ in
       lingmo-sddm-theme
       lingmo-systemicons
       lingmo-wallpapers
+      lingmo-plymouth-theme
       pkgs.lingmo-qt6.lingmo-appearance
       pkgs.lingmo-qt6.lingmo-installer-firstboot
     ];
