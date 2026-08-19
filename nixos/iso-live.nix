@@ -41,6 +41,15 @@ in
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.pantheon.enable = true;
 
+  # Graphical base ships Firefox by default; use Chromium instead.
+  environment.defaultPackages = lib.mkForce (with pkgs; [
+    gparted
+    vim
+    nano
+    chromium
+    mesa-demos
+  ]);
+
   # ---- Live user (autologin) ----
   users.users.liveuser = {
     isNormalUser = true;
