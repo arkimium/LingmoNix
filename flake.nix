@@ -1,10 +1,16 @@
 {
   description = "LingmoNix — the LingmoOS desktop environment on NixOS";
 
-  # Binary cache for pre-built LingmoNix artifacts (Cachix).
+  # Binary caches: USTC mirror of the nix store + LingmoNix Cachix.
   nixConfig = {
-    extra-substituters = [ "https://lingmonix.cachix.org" ];
-    extra-trusted-public-keys = [ "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA==" ];
+    extra-substituters = [
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://lingmonix.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA=="
+    ];
   };
 
   inputs = {
@@ -54,7 +60,8 @@
           lingmo-sddm-theme
           lingmo-systemicons
           lingmo-wallpapers
-          lingmo-plymouth-theme;
+          lingmo-plymouth-theme
+          lingmo-grub-config;
         inherit (pkgs.lingmo-qt6)
           lingmo-appearance
           lingmo-installer-firstboot;

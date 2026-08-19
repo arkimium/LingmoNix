@@ -58,6 +58,20 @@ in
     boot.plymouth.theme = "lingmo-plymouth";
     boot.plymouth.themePackages = [ pkgs.lingmo.lingmo-plymouth-theme ];
 
+    # ---- GRUB boot splash + theme (Lingmo branding) ----
+    boot.loader.grub.splashImage = "${pkgs.lingmo.lingmo-grub-config}/grub/splash.png";
+    boot.loader.grub.theme = "${pkgs.lingmo.lingmo-grub-config}/grub/themes/lingmo";
+
+    # ---- Binary caches: USTC store mirror + LingmoNix Cachix ----
+    nix.settings.substituters = [
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://lingmonix.cachix.org"
+    ];
+    nix.settings.trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA=="
+    ];
+
     # ---- Desktop session entry ----
     services.xserver.displayManager.session = [{
       name = "lingmo";
@@ -97,6 +111,7 @@ in
       lingmo-systemicons
       lingmo-wallpapers
       lingmo-plymouth-theme
+      lingmo-grub-config
       pkgs.lingmo-qt6.lingmo-appearance
       pkgs.lingmo-qt6.lingmo-installer-firstboot
     ];

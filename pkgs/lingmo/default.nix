@@ -42,6 +42,7 @@ lib.recurseIntoAttrs (rec {
   lingmo-systemicons = callPackage ./lingmo-systemicons { };
   lingmo-wallpapers = callPackage ./lingmo-wallpapers { };
   lingmo-plymouth-theme = callPackage ./lingmo-plymouth-theme { };
+  lingmo-grub-config = callPackage ./lingmo-grub-config { };
 
   # NOTE: lingmo-appearance + lingmo-installer-firstboot are Qt6/KF6 and live
   # in the separate pkgs.lingmo-qt6 set (see overlays/lingmo.nix).

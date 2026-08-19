@@ -1,11 +1,10 @@
 # LingmoNix full live ISO.
 #
-# Graphical live base (X11, NetworkManager, guest tools, plymouth) + the full
-# Lingmo desktop module + the Calamares graphical installer, branded LingmoNix.
+# Live desktop is Pantheon (a stable desktop to run the installer from); the
+# installer (Calamares, branded LingmoNix) installs the Lingmo desktop.
 #
-# Calamares: we reuse NixOS's calamares-nixos + calamares-nixos-extensions
-# (the NixOS install modules), but point its branding at our "lingmonix"
-# component (see pkgs/lingmo/lingmo-calamares-branding).
+# Branding (os-release, plymouth, grub, calamares) is LingmoNix. Nix store
+# fetches from the USTC mirror + LingmoNix Cachix.
 { config, lib, pkgs, modulesPath, ... }:
 
 let
@@ -27,34 +26,64 @@ in
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-base.nix")
   ];
 
-  # Full Lingmo module: SDDM + Lingmo session + all components + branding.
-  services.desktopManager.lingmo.enable = true;
+  # ---- LingmoNix branding (os-release) ----
+  system.nixos.distroName = "LingmoNix";
+  system.nixos.distroId = "lingmonix";
+  system.nixos.extraOSReleaseArgs = {
+    VERSION_ID = "0.1";
+    VERSION = "0.1 (Originium)";
+    VERSION_CODENAME = "originium";
+    PRETTY_NAME = "LingmoNix 0.1 (Originium)";
+    LOGO = "distributor-logo";
+  };
+
+  # ---- Live desktop: Pantheon ----
+  services.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.pantheon.enable = true;
+
+  # ---- Live user (autologin) ----
+  users.users.liveuser = {
+    isNormalUser = true;
+    initialPassword = "lingmo";
+    extraGroups = [ "wheel" ];
+  };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "liveuser";
+  };
+
+  # ---- Boot branding: plymouth + grub ----
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "lingmo-plymouth";
+  boot.plymouth.themePackages = [ pkgs.lingmo.lingmo-plymouth-theme ];
+  boot.loader.grub.splashImage = "${pkgs.lingmo.lingmo-grub-config}/grub/splash.png";
+  boot.loader.grub.theme = "${pkgs.lingmo.lingmo-grub-config}/grub/themes/lingmo";
+
+  # ---- Binary caches: USTC store mirror + LingmoNix Cachix ----
+  nix.settings.substituters = [
+    "https://mirrors.ustc.edu.cn/nix-channels/store"
+    "https://lingmonix.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA=="
+  ];
 
   # ---- Calamares installer (LingmoNix branding) ----
   environment.systemPackages = with pkgs; [
+    lingmo.branding                    # distributor-logo (LingmoOS logo)
+    lingmo.lingmo-plymouth-theme
+    lingmo.lingmo-grub-config
+    lingmo.lingmo-calamares-branding   # branding/lingmonix component
     libsForQt5.kpmcore
     calamares-nixos
     calamares-nixos-autostart
-    calamares-nixos-lingmonix           # replaces calamares-nixos-extensions
-    lingmo.lingmo-calamares-branding    # branding/lingmonix component
+    calamares-nixos-lingmonix          # replaces calamares-nixos-extensions
     glibcLocales
   ];
 
   # Installer needs every locale to choose from.
   i18n.supportedLocales = [ "all" ];
-
-  # Live user + auto-login so the installer (autostart) can run on the desktop.
-  # NOTE: lingmo-session XDG-autostart handling is still Phase 5; the autostart
-  # item is provided here and will take effect once the session runs it.
-  users.users.nixos = {
-    isNormalUser = true;
-    initialPassword = "nixos";
-    extraGroups = [ "wheel" ];
-  };
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "nixos";
-  };
 
   system.stateVersion = "25.05";
 }
