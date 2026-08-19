@@ -1,0 +1,36 @@
+---
+componentName:  lingmonix
+
+welcomeStyleCalamares:   false
+welcomeExpandingLogo:   true
+
+windowExpanding:    normal
+windowSize: 800px,520px
+windowPlacement: center
+
+sidebar: widget
+navigation: widget
+
+strings:
+    productName:         "LingmoNix"
+    shortProductName:    LingmoNix
+    version:             0.1
+    shortVersion:        0.1
+    versionedName:       LingmoNix 0.1 "Originium"
+    shortVersionedName:  LingmoNix 0.1
+    bootloaderEntryName: LingmoNix
+    productUrl:          https://lingmo.org/
+    supportUrl:          https://github.com/LingmoOS
+    knownIssuesUrl:      https://github.com/LingmoOS
+    releaseNotesUrl:     https://github.com/LingmoOS
+
+images:
+    productIcon:         "lingmo-logo.svg"
+    productLogo:         "lingmo-logo.svg"
+    productWelcome:      "lingmo-logo.svg"
+
+style:
+   SidebarBackground:        "#292F34"
+   SidebarText:              "#FFFFFF"
+   SidebarTextCurrent:       "#292F34"
+   SidebarBackgroundCurrent: "#2ea36d"

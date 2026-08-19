@@ -5,6 +5,7 @@
 lib.recurseIntoAttrs (rec {
   # ---- Theming / branding ----
   branding = callPackage ./branding { inherit brandingAssets; };
+  lingmo-calamares-branding = callPackage ./lingmo-calamares-branding { inherit brandingAssets; };
 
   # ---- Layer 1: platform ----
   liblingmo = callPackage ./liblingmo { };

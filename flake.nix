@@ -32,6 +32,7 @@
       packages.${system} = {
         inherit (pkgs.lingmo)
           branding
+          lingmo-calamares-branding
           liblingmo
           lingmoui
           lingmo-qt-plugins
