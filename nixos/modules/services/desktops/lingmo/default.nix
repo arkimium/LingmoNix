@@ -62,7 +62,8 @@ in
     boot.loader.grub.splashImage = "${pkgs.lingmo.lingmo-grub-config}/grub/splash.png";
     boot.loader.grub.theme = "${pkgs.lingmo.lingmo-grub-config}/grub/themes/lingmo";
 
-    # ---- Binary caches: USTC store mirror + LingmoNix Cachix ----
+    # ---- Nix: experimental features + binary caches ----------------
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.settings.substituters = [
       "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://lingmonix.cachix.org"

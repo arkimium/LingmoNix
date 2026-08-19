@@ -8,11 +8,21 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 let
-  # calamares-nixos-extensions with `branding: lingmonix` selected instead of
-  # the stock "nixos" branding.
+  # calamares-nixos-extensions with `branding: lingmonix`, a "Lingmo" desktop
+  # option in the package chooser, and experimental-features in the generated config.
   calamares-nixos-lingmonix = pkgs.calamares-nixos-extensions.overrideAttrs (o: {
+    nativeBuildInputs = (o.nativeBuildInputs or []) ++ [ pkgs.python3 ];
     postInstall = (o.postInstall or "") + ''
+      # Use the LingmoNix branding component.
       sed -i 's/^branding:.*/branding: lingmonix/' "$out/share/calamares/settings.conf"
+
+      # Add the "Lingmo" desktop option (icon + packagechooser item) and emit
+      # experimental-features + lingmo desktop into the generated configuration.nix.
+      cp "${pkgs.lingmo.lingmo-calamares-branding}/share/calamares/branding/lingmonix/lingmo-logo.png" \
+         "$out/share/calamares/images/lingmo.png"
+      python3 ${../tools/patch-calamares-nixos.py} \
+         "$out/share/calamares/modules/packagechooser.conf" \
+         "$out/lib/calamares/modules/nixos/main.py"
     '';
   });
 
@@ -71,7 +81,8 @@ in
   boot.loader.grub.splashImage = "${pkgs.lingmo.lingmo-grub-config}/grub/splash.png";
   boot.loader.grub.theme = "${pkgs.lingmo.lingmo-grub-config}/grub/themes/lingmo";
 
-  # ---- Binary caches: USTC store mirror + LingmoNix Cachix ----
+  # ---- Nix: experimental features + binary caches ----------------
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.substituters = [
     "https://mirrors.ustc.edu.cn/nix-channels/store"
     "https://lingmonix.cachix.org"
