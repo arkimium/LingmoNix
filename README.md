@@ -4,12 +4,6 @@ A LingmoOS-like GNU/Linux distribution built on NixOS: the Lingmo desktop
 (core, DE, dock, launcher, control center, KWin plugins, Qt plugins, apps,
 daemons, theming) packaged as a Nix flake + NixOS module.
 
-**Branding requirements:** `os-release` name = **LingmoNix**; the **LingmoOS
-logo** is the default system icon (freedesktop `distributor-logo`).
-
-See [PLAN.md](./PLAN.md) for the full migration plan, component inventory, and
-phase breakdown.
-
 ## Layout
 
 ```
