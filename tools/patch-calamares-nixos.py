@@ -14,9 +14,7 @@ import sys
 LINGMO_ITEM = '''    - id: lingmo
       packages: [ lingmo ]
       name: Lingmo
-      description: "<html>Lingmo is a modern, elegant Qt5-based desktop environment — the LingmoNix desktop.<br/>"
-                    "<br/>"
-                    "Learn more at <a href=\\"https://lingmo.org/\\">lingmo.org</a></html>"
+      description: "Lingmo is a modern, elegant Qt5-based desktop environment — the LingmoNix desktop."
       screenshot: "/run/current-system/sw/share/calamares/images/lingmo.png"
 
 '''
