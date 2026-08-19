@@ -13,7 +13,12 @@ stdenvNoCC.mkDerivation {
 
     mkdir -p "$out/share/icons/hicolor/scalable/apps" \
              "$out/share/icons/hicolor/symbolic/apps" \
+             "$out/share/icons/hicolor/256x256/apps" \
              "$out/share/pixmaps"
+
+    # Distribution logo (clean icon, no text): icon name "lingmo".
+    cp "${brandingAssets}/lingmo-logo.png" \
+       "$out/share/icons/hicolor/256x256/apps/lingmo.png"
 
     # Freedesktop distributor-logo (vector + symbolic) from the Lingmo plymouth logo
     cp "${brandingAssets}/lingmo-logo.svg" \

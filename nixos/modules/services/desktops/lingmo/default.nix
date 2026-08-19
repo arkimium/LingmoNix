@@ -42,8 +42,8 @@ in
       VERSION = "${cfg.version} (${capitalize cfg.codename})";
       VERSION_CODENAME = lib.toLower cfg.codename;
       PRETTY_NAME = "${cfg.brandingName} ${cfg.version} (${capitalize cfg.codename})";
-      # freedesktop icon name for the OS logo (shipped by the branding pkg).
-      LOGO = "distributor-logo";
+      # icon name for the OS logo (shipped by the branding pkg as hicolor/.../lingmo).
+      LOGO = "lingmo";
     };
 
     # ---- Display stack: X11 first (Lingmo is X11-centric; Wayland later) ----

@@ -25,7 +25,7 @@ Presentation
     Slide {
         Image {
             id: logo
-            source: "lingmo-logo.svg"
+            source: "lingmo-logo.png"
             width: 640
             height: 220
             fillMode: Image.PreserveAspectFit

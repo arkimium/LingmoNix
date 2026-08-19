@@ -16,7 +16,8 @@
   inputs = {
     # Pinned because nixos-25.05 is the last release line that still ships
     # Qt5 / KDE Frameworks 5 / Plasma 5 (KWin 5), which LingmoOS is built on.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # Fetched from the USTC mirror (channel source) instead of GitHub.
+    nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-25.05/nixexprs.tar.xz";
   };
 
   outputs = { self, nixpkgs }:

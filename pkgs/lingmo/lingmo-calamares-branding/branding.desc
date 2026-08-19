@@ -25,9 +25,9 @@ strings:
     releaseNotesUrl:     https://github.com/LingmoOS
 
 images:
-    productIcon:         "lingmo-logo.svg"
-    productLogo:         "lingmo-logo.svg"
-    productWelcome:      "lingmo-logo.svg"
+    productIcon:         "lingmo-logo.png"
+    productLogo:         "lingmo-logo.png"
+    productWelcome:      "lingmo-logo.png"
 
 style:
    SidebarBackground:        "#292F34"

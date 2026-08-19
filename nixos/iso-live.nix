@@ -34,7 +34,7 @@ in
     VERSION = "0.1 (Originium)";
     VERSION_CODENAME = "originium";
     PRETTY_NAME = "LingmoNix 0.1 (Originium)";
-    LOGO = "distributor-logo";
+    LOGO = "lingmo";
   };
 
   # ---- Live desktop: Pantheon ----
@@ -60,6 +60,9 @@ in
     enable = true;
     user = "liveuser";
   };
+  # The installer base profile auto-logs-in `nixos` on the console (tty1), which
+  # triggers "user nixos has logged on tty1" on reboot. Use liveuser instead.
+  services.getty.autologinUser = lib.mkForce "liveuser";
 
   # ---- Boot branding: plymouth + grub ----
   boot.plymouth.enable = true;
