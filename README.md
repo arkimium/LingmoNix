@@ -76,9 +76,6 @@ nix build --no-link --print-out-paths \
   | xargs cachix push lingmonix
 ```
 
-Note: the ISO images are **not** pushed to the cache — they are production
-artifacts copied to `dist/` instead.
-
 ## Licensing
 
 LingmoOS components are GPL-3.0 (per-component LICENSE files should be
