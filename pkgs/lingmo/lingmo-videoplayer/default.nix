@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, mpv, qtbase, qtquickcontrols2, qttools }:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, mpv, qtbase, qtdeclarative, qtquickcontrols2, qtgraphicaleffects, qttools, lingmoui }:
 
 stdenv.mkDerivation {
   pname = "lingmo-videoplayer";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ mpv qtbase qtquickcontrols2 qttools ];
+  buildInputs = [ mpv qtbase qtdeclarative qtquickcontrols2 qtgraphicaleffects qttools lingmoui ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

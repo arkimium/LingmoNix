@@ -20,17 +20,17 @@ lib.recurseIntoAttrs (rec {
 
   # ---- Layer 3: shell & panels ----
   lingmo-dock = callPackage ./lingmo-dock { inherit lingmoui; };
-  lingmo-launcher = callPackage ./lingmo-launcher { };
-  lingmo-statusbar = callPackage ./lingmo-statusbar { };
+  lingmo-launcher = callPackage ./lingmo-launcher { inherit lingmoui liblingmo; };
+  lingmo-statusbar = callPackage ./lingmo-statusbar { inherit lingmoui liblingmo; };
   lingmo-settings = callPackage ./lingmo-settings { inherit lingmoui; };
 
   # ---- Layer 4: apps ----
-  lingmo-filemanager = callPackage ./lingmo-filemanager { };
-  lingmo-screenshots = callPackage ./lingmo-screenshots { };
+  lingmo-filemanager = callPackage ./lingmo-filemanager { inherit lingmoui; };
+  lingmo-screenshots = callPackage ./lingmo-screenshots { inherit lingmoui; };
   lingmo-terminal = callPackage ./lingmo-terminal { inherit lingmoui; };
-  lingmo-texteditor = callPackage ./lingmo-texteditor { };
-  lingmo-videoplayer = callPackage ./lingmo-videoplayer { };
-  lingmo-calculator = callPackage ./lingmo-calculator { };
+  lingmo-texteditor = callPackage ./lingmo-texteditor { inherit lingmoui; };
+  lingmo-videoplayer = callPackage ./lingmo-videoplayer { inherit lingmoui; };
+  lingmo-calculator = callPackage ./lingmo-calculator { inherit lingmoui; };
   # NOTE: no separate daemon layer — all Qt5 daemons are bundled in lingmo-core.
   # velora-* (next-gen, Qt6/Wayland) and apt-centric daemons (lingmo-daemon/QApt,
   # lastore-daemon, lingmo-updator) are out of scope / replaced by Nix-native shims.

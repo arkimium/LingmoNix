@@ -115,6 +115,8 @@ in
       lingmo-grub-config
       pkgs.lingmo-qt6.lingmo-appearance
       pkgs.lingmo-qt6.lingmo-installer-firstboot
+      # Window manager: lingmo-session hardcodes `kwin_x11`.
+      pkgs.libsForQt5.kwin
     ];
 
     # ---- Qt environment ----

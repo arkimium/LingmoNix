@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtquickcontrols2, qttools }:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qtquickcontrols2, qtgraphicaleffects, qttools, lingmoui }:
 
 stdenv.mkDerivation {
   pname = "lingmo-screenshots";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtquickcontrols2 qttools ];
+  buildInputs = [ qtbase qtdeclarative qtquickcontrols2 qtgraphicaleffects qttools lingmoui ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

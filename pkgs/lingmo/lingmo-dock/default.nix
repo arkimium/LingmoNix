@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook
-, qtbase, qttools, qtquickcontrols2, qtx11extras, kwindowsystem, lingmoui
+, qtbase, qtdeclarative, qttools, qtquickcontrols2, qtgraphicaleffects, qtx11extras, kwindowsystem, lingmoui
 }:
 
 stdenv.mkDerivation {
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtbase qttools qtquickcontrols2 qtx11extras kwindowsystem lingmoui ];
+  buildInputs = [ qtbase qtdeclarative qttools qtquickcontrols2 qtgraphicaleffects qtx11extras kwindowsystem lingmoui ];
 
   # Upstream hardcodes absolute /usr and /etc install paths; nixpkgs' cmake hook
   # rewrites leftover /usr|/opt to /var/empty (build failure) — redirect under $out.

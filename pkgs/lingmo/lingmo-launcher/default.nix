@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook
-, qtbase, qttools, qtquickcontrols2, kwindowsystem
+, qtbase, qtdeclarative, qttools, qtquickcontrols2, qtgraphicaleffects, kwindowsystem, lingmoui, liblingmo
 }:
 
 stdenv.mkDerivation {
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtbase qttools qtquickcontrols2 kwindowsystem ];
+  buildInputs = [ qtbase qtdeclarative qttools qtquickcontrols2 qtgraphicaleffects kwindowsystem lingmoui liblingmo ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtquickcontrols2, kwindowsystem, kio }:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qttools, qtquickcontrols2, qtgraphicaleffects, kwindowsystem, kio, lingmoui }:
 
 stdenv.mkDerivation {
   pname = "lingmo-filemanager";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtquickcontrols2 kwindowsystem kio ];
+  buildInputs = [ qtbase qtdeclarative qttools qtquickcontrols2 qtgraphicaleffects kwindowsystem kio lingmoui ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

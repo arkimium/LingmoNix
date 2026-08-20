@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qtquickcontrols2, qttools, syntax-highlighting }:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qtquickcontrols, qtquickcontrols2, qttools, syntax-highlighting, lingmoui }:
 
 stdenv.mkDerivation {
   pname = "lingmo-texteditor";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtbase qtdeclarative qtquickcontrols2 qttools syntax-highlighting ];
+  buildInputs = [ qtbase qtdeclarative qtquickcontrols qtquickcontrols2 qttools syntax-highlighting lingmoui ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

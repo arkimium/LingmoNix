@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qtquickcontrols2, qtx11extras, qttools, qtgraphicaleffects, lingmoui }:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, qtbase, qtdeclarative, qtquickcontrols2, qtx11extras, qttools, qtgraphicaleffects, lingmoui, qmltermwidget }:
 
 stdenv.mkDerivation {
   pname = "lingmo-terminal";
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
-  buildInputs = [ qtbase qtdeclarative qtquickcontrols2 qtx11extras qttools qtgraphicaleffects lingmoui ];
+  buildInputs = [ qtbase qtdeclarative qtquickcontrols2 qtx11extras qttools qtgraphicaleffects lingmoui qmltermwidget ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
