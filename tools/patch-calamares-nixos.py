@@ -24,8 +24,8 @@ SNIPPETS = '''cfgexperimental = """  # Enable the nix command and flakes (requir
 
 """
 
-cfglingmo = """  # LingmoNix: apply the bundled Lingmo overlay.
-  nixpkgs.overlays = [ (import /etc/nixos/lingmonix/overlays/lingmo.nix) ];
+cfglingmo = """  # LingmoNix: apply the bundled Lingmo overlay (relative to this file).
+  nixpkgs.overlays = [ (import ./lingmonix/overlays/lingmo.nix) ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -40,19 +40,23 @@ cfglingmo = """  # LingmoNix: apply the bundled Lingmo overlay.
 
 LINGMO_MAPPING = '''    elif gs.value("packagechooser_packagechooser") == "lingmo":
         cfg += cfglingmo
-        # Add the bundled Lingmo module to the imports list.
+        # Add the bundled Lingmo module to the imports list (relative path).
         cfg = cfg.replace(
             "./hardware-configuration.nix\\n    ];",
-            "./hardware-configuration.nix\\n      /etc/nixos/lingmonix/nixos/modules/services/desktops/lingmo\\n    ];",
+            "./hardware-configuration.nix\\n      ./lingmonix/nixos/modules/services/desktops/lingmo\\n    ];",
         )
         # Copy the bundled LingmoNix source onto the target.
-        subprocess.check_output(
-            ["mkdir", "-p", root_mount_point + "/etc/nixos"], stderr=subprocess.STDOUT
-        )
-        subprocess.check_output(
-            ["cp", "-r", "/run/current-system/sw/share/lingmonix", root_mount_point + "/etc/nixos/lingmonix"],
-            stderr=subprocess.STDOUT,
-        )
+        try:
+            subprocess.check_output(
+                ["mkdir", "-p", root_mount_point + "/etc/nixos"], stderr=subprocess.STDOUT
+            )
+            subprocess.check_output(
+                ["cp", "-r", "/run/current-system/sw/share/lingmonix", root_mount_point + "/etc/nixos/lingmonix"],
+                stderr=subprocess.STDOUT,
+            )
+        except subprocess.CalledProcessError as e:
+            libcalamares.utils.error("Failed to copy LingmoNix source: {}".format(e.output))
+            return (_("LingmoNix source copy failed"), _("Check the installer log for details."))
 '''
 
 
