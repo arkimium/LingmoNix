@@ -9,7 +9,7 @@
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA=="
+      "lingmonix.cachix.org-1:1I7WKo+wDzI62DyDBGhslINuPwoH37DV2DkhgiXiR78="
     ];
   };
 

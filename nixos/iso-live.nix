@@ -69,19 +69,11 @@ in
     mesa-demos
   ]);
 
-  # ---- Live user (autologin) ----
-  users.users.liveuser = {
-    isNormalUser = true;
-    initialPassword = "lingmo";
-    extraGroups = [ "wheel" ];
-  };
+  # ---- Live user (autologin as the installer's default `nixos` user) ----
   services.displayManager.autoLogin = {
     enable = true;
-    user = "liveuser";
+    user = "nixos";
   };
-  # The installer base profile auto-logs-in `nixos` on the console (tty1), which
-  # triggers "user nixos has logged on tty1" on reboot. Use liveuser instead.
-  services.getty.autologinUser = lib.mkForce "liveuser";
 
   # ---- Boot branding: plymouth + grub ----
   boot.plymouth.enable = true;
@@ -98,7 +90,7 @@ in
   ];
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "lingmonix.cachix.org-1:OraUgITDO2Y9T+FJI4VELvooenUR+RiYiTLn+ExC3T3uYuMZsma1jnwNHjirTiPqyMnO/wMdg4Um5zsc7xXzBA=="
+    "lingmonix.cachix.org-1:1I7WKo+wDzI62DyDBGhslINuPwoH37DV2DkhgiXiR78="
   ];
 
   # ---- Calamares installer (LingmoNix branding) ----

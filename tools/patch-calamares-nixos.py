@@ -45,13 +45,13 @@ LINGMO_MAPPING = '''    elif gs.value("packagechooser_packagechooser") == "lingm
             "./hardware-configuration.nix\\n    ];",
             "./hardware-configuration.nix\\n      ./lingmonix/nixos/modules/services/desktops/lingmo\\n    ];",
         )
-        # Copy the bundled LingmoNix source onto the target.
+        # Copy the bundled LingmoNix source onto the target (as root via pkexec).
         try:
             subprocess.check_output(
-                ["mkdir", "-p", root_mount_point + "/etc/nixos"], stderr=subprocess.STDOUT
+                ["pkexec", "mkdir", "-p", root_mount_point + "/etc/nixos"], stderr=subprocess.STDOUT
             )
             subprocess.check_output(
-                ["cp", "-r", "/run/current-system/sw/share/lingmonix", root_mount_point + "/etc/nixos/lingmonix"],
+                ["pkexec", "cp", "-r", "/run/current-system/sw/share/lingmonix", root_mount_point + "/etc/nixos/lingmonix"],
                 stderr=subprocess.STDOUT,
             )
         except subprocess.CalledProcessError as e:
