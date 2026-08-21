@@ -11,4 +11,9 @@ final: prev: {
 
   # Qt6 / KF6 components (lingmo-appearance, lingmo-installer-firstboot).
   lingmo-qt6 = final.kdePackages.callPackage ../pkgs/lingmo-qt6 { };
+
+  # PyQt5 fluent widgets library (lingmo-qt-widgets) + its frameless-window dep.
+  lingmo-qt-widgets = final.python3Packages.callPackage ../pkgs/python/lingmo-qt-widgets {
+    pyqt5-frameless-window = final.python3Packages.callPackage ../pkgs/python/pyqt5-frameless-window { };
+  };
 }

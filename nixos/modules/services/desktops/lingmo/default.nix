@@ -94,18 +94,22 @@ in
       lingmoui
       lingmo-qt-plugins
       lingmo-kwin-plugins
+      lingmo-kwin-plugins-roundedwindow
       lingmo-core
       lingmo-screenlocker
       lingmo-dock
       lingmo-launcher
       lingmo-statusbar
       lingmo-settings
+      lingmo-desktop
       lingmo-filemanager
       lingmo-screenshots
       lingmo-terminal
       lingmo-texteditor
       lingmo-videoplayer
       lingmo-calculator
+      lingmo-clock
+      lingmo-system-monitor
       lingmo-cursor-themes
       lingmo-gtk-themes
       lingmo-sddm-theme
@@ -113,8 +117,10 @@ in
       lingmo-wallpapers
       lingmo-plymouth-theme
       lingmo-grub-config
+      lingmo-desktop-base
       pkgs.lingmo-qt6.lingmo-appearance
       pkgs.lingmo-qt6.lingmo-installer-firstboot
+      pkgs.lingmo-qt-widgets
       # Window manager: lingmo-session hardcodes `kwin_x11`.
       pkgs.libsForQt5.kwin
     ];

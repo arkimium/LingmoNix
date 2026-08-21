@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, pkg-config
 , qtbase, qtdeclarative, qttools, qtquickcontrols2, qtgraphicaleffects, qtx11extras
-, kcoreaddons, kwindowsystem, kidletime, polkit-qt, polkit, xorg
+, kcoreaddons, kwindowsystem, kidletime, polkit-qt, polkit, xorg, lingmo-wallpapers
 }:
 
 stdenv.mkDerivation {
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
 
   # Upstream hardcodes absolute /usr and /etc install paths; nixpkgs' cmake hook
   # rewrites any leftover /usr|/opt to /var/empty (which fails), so redirect under $out.
-  # NOTE: runtime /usr paths in .cpp are a later phase (module wiring) concern.
+  # Also fix runtime paths: default wallpaper + helper binaries + translations.
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace 'DESTINATION /etc/' 'DESTINATION etc/' \
@@ -33,6 +33,13 @@ stdenv.mkDerivation {
     substituteInPlace notificationd/CMakeLists.txt \
       --replace '/usr/bin' 'bin' \
       --replace '/usr/share/lingmo-notificationd/translations' 'share/lingmo-notificationd/translations'
+
+    # Default wallpaper (settings-daemon exposes it over D-Bus; the desktop reads it).
+    substituteInPlace settings-daemon/theme/thememanager.cpp \
+      --replace '/usr/share/backgrounds/lingmoos/default.jpg' '${lingmo-wallpapers}/share/backgrounds/lingmoos/default.jpg' \
+      --replace '/usr/bin/lingmo-wallpaper-color-pick' "$out/bin/lingmo-wallpaper-color-pick"
+    substituteInPlace settings-daemon/brightness/brightnessmanager.cpp \
+      --replace '/usr/bin/lingmo-screen-brightness' "$out/bin/lingmo-screen-brightness"
   '';
 
   meta = with lib; {

@@ -44,28 +44,38 @@
           lingmoui
           lingmo-qt-plugins
           lingmo-kwin-plugins
+          lingmo-kwin-plugins-roundedwindow
           lingmo-core
           lingmo-screenlocker
           lingmo-dock
           lingmo-launcher
           lingmo-statusbar
           lingmo-settings
+          lingmo-desktop
           lingmo-filemanager
           lingmo-screenshots
           lingmo-terminal
           lingmo-texteditor
           lingmo-videoplayer
           lingmo-calculator
+          lingmo-clock
+          lingmo-system-monitor
           lingmo-cursor-themes
           lingmo-gtk-themes
           lingmo-sddm-theme
           lingmo-systemicons
           lingmo-wallpapers
           lingmo-plymouth-theme
-          lingmo-grub-config;
+          lingmo-grub-config
+          lingmo-desktop-base;
         inherit (pkgs.lingmo-qt6)
           lingmo-appearance
           lingmo-installer-firstboot;
+
+        # Python (PyQt5) fluent widgets library used by Lingmo's Python tooling.
+        lingmo-qt-widgets = pkgs.python3Packages.callPackage ./pkgs/python/lingmo-qt-widgets {
+          pyqt5-frameless-window = pkgs.python3Packages.callPackage ./pkgs/python/pyqt5-frameless-window { };
+        };
 
         # ISOs — `nix build .#iso` (minimal) / `nix build .#iso-live` (full live).
         iso = self.nixosConfigurations.lingmonix-iso-minimal.config.system.build.isoImage;

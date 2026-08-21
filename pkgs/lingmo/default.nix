@@ -12,9 +12,10 @@ lib.recurseIntoAttrs (rec {
   lingmoui = callPackage ./lingmoui { };
   lingmo-qt-plugins = callPackage ./lingmo-qt-plugins { };
   lingmo-kwin-plugins = callPackage ./lingmo-kwin-plugins { };
+  lingmo-kwin-plugins-roundedwindow = callPackage ./lingmo-kwin-plugins-roundedwindow { };
 
   # ---- Layer 2: core & session ----
-  lingmo-core = callPackage ./lingmo-core { };
+  lingmo-core = callPackage ./lingmo-core { inherit lingmo-wallpapers; };
   lingmo-screenlocker = callPackage ./lingmo-screenlocker { };
   # NOTE: lingmo-session + lingmo-polkit-agent are bundled inside lingmo-core.
 
@@ -23,6 +24,7 @@ lib.recurseIntoAttrs (rec {
   lingmo-launcher = callPackage ./lingmo-launcher { inherit lingmoui liblingmo; };
   lingmo-statusbar = callPackage ./lingmo-statusbar { inherit lingmoui liblingmo; };
   lingmo-settings = callPackage ./lingmo-settings { inherit lingmoui; };
+  lingmo-desktop = callPackage ./lingmo-desktop { inherit lingmoui liblingmo; };
 
   # ---- Layer 4: apps ----
   lingmo-filemanager = callPackage ./lingmo-filemanager { inherit lingmoui; };
@@ -31,6 +33,8 @@ lib.recurseIntoAttrs (rec {
   lingmo-texteditor = callPackage ./lingmo-texteditor { inherit lingmoui; };
   lingmo-videoplayer = callPackage ./lingmo-videoplayer { inherit lingmoui; };
   lingmo-calculator = callPackage ./lingmo-calculator { inherit lingmoui; };
+  lingmo-clock = callPackage ./lingmo-clock { inherit lingmoui liblingmo; };
+  lingmo-system-monitor = callPackage ./lingmo-system-monitor { inherit lingmoui liblingmo; };
   # NOTE: no separate daemon layer — all Qt5 daemons are bundled in lingmo-core.
   # velora-* (next-gen, Qt6/Wayland) and apt-centric daemons (lingmo-daemon/QApt,
   # lastore-daemon, lingmo-updator) are out of scope / replaced by Nix-native shims.
@@ -43,6 +47,7 @@ lib.recurseIntoAttrs (rec {
   lingmo-wallpapers = callPackage ./lingmo-wallpapers { };
   lingmo-plymouth-theme = callPackage ./lingmo-plymouth-theme { };
   lingmo-grub-config = callPackage ./lingmo-grub-config { };
+  lingmo-desktop-base = callPackage ./lingmo-desktop-base { };
 
   # NOTE: lingmo-appearance + lingmo-installer-firstboot are Qt6/KF6 and live
   # in the separate pkgs.lingmo-qt6 set (see overlays/lingmo.nix).
