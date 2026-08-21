@@ -16,4 +16,10 @@ final: prev: {
   lingmo-qt-widgets = final.python3Packages.callPackage ../pkgs/python/lingmo-qt-widgets {
     pyqt5-frameless-window = final.python3Packages.callPackage ../pkgs/python/pyqt5-frameless-window { };
   };
+
+  # Lingmo's fork of KWin 5.27.2 (Qt5/KF5).
+  lingmo-kwin = final.callPackage ../pkgs/lingmo/lingmo-kwin {
+    inherit (final) libsForQt5;
+    lingmo-wayland-protocols = final.lingmo.lingmo-wayland-protocols;
+  };
 }

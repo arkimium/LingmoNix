@@ -45,6 +45,7 @@
           lingmo-qt-plugins
           lingmo-kwin-plugins
           lingmo-kwin-plugins-roundedwindow
+          lingmo-wayland-protocols
           lingmo-core
           lingmo-screenlocker
           lingmo-dock
@@ -76,6 +77,9 @@
         lingmo-qt-widgets = pkgs.python3Packages.callPackage ./pkgs/python/lingmo-qt-widgets {
           pyqt5-frameless-window = pkgs.python3Packages.callPackage ./pkgs/python/pyqt5-frameless-window { };
         };
+
+        # Lingmo's fork of KWin.
+        inherit (pkgs) lingmo-kwin;
 
         # ISOs — `nix build .#iso` (minimal) / `nix build .#iso-live` (full live).
         iso = self.nixosConfigurations.lingmonix-iso-minimal.config.system.build.isoImage;

@@ -13,6 +13,7 @@ lib.recurseIntoAttrs (rec {
   lingmo-qt-plugins = callPackage ./lingmo-qt-plugins { };
   lingmo-kwin-plugins = callPackage ./lingmo-kwin-plugins { };
   lingmo-kwin-plugins-roundedwindow = callPackage ./lingmo-kwin-plugins-roundedwindow { };
+  lingmo-wayland-protocols = callPackage ./lingmo-wayland-protocols { };
 
   # ---- Layer 2: core & session ----
   lingmo-core = callPackage ./lingmo-core { inherit lingmo-wallpapers; };
